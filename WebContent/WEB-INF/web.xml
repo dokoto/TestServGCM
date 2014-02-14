@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>TestServGCM</display-name>
+
+	<servlet>
+		<description>Registra la API-KEY Del smartphone</description>
+		<servlet-name>Register</servlet-name>
+		<servlet-class>net.homelinux.mansierra.serv.Register</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Register</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>Envia un mensaje al smartphone</description>
+		<servlet-name>SendMsgToDevices</servlet-name>
+		<servlet-class>net.homelinux.mansierra.serv.SendMsgToDevices</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SendMsgToDevices</servlet-name>
+		<url-pattern>/send</url-pattern>
+	</servlet-mapping>
+
+</web-app>
