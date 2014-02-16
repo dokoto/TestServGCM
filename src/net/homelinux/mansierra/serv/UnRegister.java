@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.homelinux.mansierra.ddbb.DBManager;
 import net.homelinux.mansierra.log.Out;
 
-public class Register extends HttpServlet
+public class UnRegister extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
@@ -33,24 +33,24 @@ public class Register extends HttpServlet
 		try
 		{
 			DBManager dbManager = (DBManager) getServletContext().getAttribute("DBManager");
-			String ApiKeyRegister = request.getParameter("ApiKeyRegister");
 			String key = request.getParameter("key");
 			String AppName = request.getParameter("AppName");
 			String User = request.getParameter("User");
 
 			out = response.getWriter();
-			if (ApiKeyRegister != null && key != null && AppName != null && !ApiKeyRegister.isEmpty() && !key.isEmpty() && !AppName.isEmpty() && User != null
-					&& !User.isEmpty())
+			if (key != null && AppName != null && !key.isEmpty() && !AppName.isEmpty() && User != null && !User.isEmpty())
 			{
-				String exitApiKeyRegister = dbManager.query(key, AppName, User);
-				if (exitApiKeyRegister == null || exitApiKeyRegister.isEmpty())
+				String ApiKeyRegister = dbManager.query(key, AppName);
+				if (ApiKeyRegister != null && !ApiKeyRegister.isEmpty())
 				{
-					dbManager.insert(key, ApiKeyRegister, AppName, User);
-					out.print(Out.info("Register success"));
+					dbManager.delete(key, ApiKeyRegister, AppName);
+					out.print(Out.info("UnRegister successful"));
+
 				} else
 				{
-					out.print(Out.warning("Phone aready registed : " + key + " App : " + AppName + " User : " + User));
+					out.print(Out.error("Phone not found : " + key + " App : " + AppName + " User : " + User));
 				}
+
 			} else
 			{
 				StringBuilder erroBuff = new StringBuilder();
@@ -63,11 +63,11 @@ public class Register extends HttpServlet
 
 				out.print(Out.error("There are not enogth datas to send message," + erroBuff.toString()));
 			}
+
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 			out.print(Out.error("Server error: " + e.toString()));
 		}
 	}
-
 }

@@ -5,6 +5,10 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>TestServGCM</display-name>
 
+	<listener>
+		<listener-class>net.homelinux.mansierra.listeners.ContextListener</listener-class>
+	</listener>
+
 	<servlet>
 		<description>Registra la API-KEY Del smartphone</description>
 		<servlet-name>Register</servlet-name>
@@ -13,6 +17,16 @@
 	<servlet-mapping>
 		<servlet-name>Register</servlet-name>
 		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>Elimina la API-KEY de un smartphone de la base de datos</description>
+		<servlet-name>UnRegister</servlet-name>
+		<servlet-class>net.homelinux.mansierra.serv.UnRegister</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UnRegister</servlet-name>
+		<url-pattern>/unregister</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
